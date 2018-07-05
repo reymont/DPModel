@@ -1,15 +1,20 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
+
 
 project.group = 'com.company'
 project.archivesBaseName = 'dp'
 project.version = '1.0.0'
 
-tasks.withType(Compile) { options.encoding = "UTF-8" }
+tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
 	classifier = 'sources'
 	from sourceSets.main.allSource
+}
+
+repositories {
+    jcenter()
 }
 
 artifacts {
@@ -19,13 +24,14 @@ artifacts {
 sourceSets.main.java.srcDirs = ['src/dp']
 
 dependencies {
+    // https://mvnrepository.com/artifact/dom4j/dom4j
     compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
-	compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
 }
 
 jar {
 	manifest {
-		attributes 'Implementation-Title': 'DPModel', 'Implementation-Version': 1.0.0
+		attributes 'Implementation-Title': 'DPModel', 'Implementation-Version': "1.0.0"
 	}
 }
 
